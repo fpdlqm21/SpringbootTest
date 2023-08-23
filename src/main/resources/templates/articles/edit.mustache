@@ -1,0 +1,22 @@
+{{>layouts/header}}
+
+{{#article}}
+<!--    해당 범위 안에서 article을 이용하겠다는 의미-->
+<!--form은 POST와 GET 메소드밖에 못씀 -->
+<form action="/articles/update" method="post" class="container">
+    <input name="id" type="hidden" value="{{id}}">
+    <div class="mb-3">
+        <label class="form-label">제목</label>
+        <input type="text" class="form-control" name="title" value="{{title}}">
+<!--        #article의 영역 안 이라서 article.title말고 title로 이용 가능해짐-->
+    </div>
+    <div class="mb-3">
+        <label class="form-label">내용</label>
+        <textarea class="form-control" rows="3" name="content">{{content}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/articles/{{article.id}}">Back</a>
+<!--    model객체(article)의 id이용-->
+</form>
+{{/article}}
+{{>layouts/footer}}
