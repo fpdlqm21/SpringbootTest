@@ -15,4 +15,9 @@ public class dailyReportController {
     public String index(){
         return "dailyReport/home";
     }
+
+    @GetMapping("/dailyReport/Record")
+    public String record(){
+        return "dailyReport/Record";
+    }
 }

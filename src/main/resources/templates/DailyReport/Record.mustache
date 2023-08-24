@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>음성 입력</title>
+</head>
+<body>
+<h1>음성 입력 폼</h1>
+
+<!-- 하나의 이미지와 5개의 결과를 표시할 영역 -->
+<div>
+    <img class="voiceImage" src="image.jpg" alt="음성 입력 시작">
+    <input type="text" class="textInput">
+</div>
+<div>
+    <img class="voiceImage" src="image.jpg" alt="음성 입력 시작">
+    <input type="text" class="textInput">
+</div>
+<div>
+    <img class="voiceImage" src="image.jpg" alt="음성 입력 시작">
+    <input type="text" class="textInput">
+</div>
+<div>
+    <img class="voiceImage" src="image.jpg" alt="음성 입력 시작">
+    <input type="text" class="textInput">
+</div>
+<div>
+    <img class="voiceImage" src="image.jpg" alt="음성 입력 시작">
+    <input type="text" class="textInput">
+</div>
+
+<script>
+    // 음성 인식 API를 지원하는지 확인
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        const voiceImages = document.querySelectorAll('.voiceImage');
+        const textInputs = document.querySelectorAll('.textInput');
+
+        voiceImages.forEach((image, index) => {
+            image.addEventListener('click', () => {
+                const recognition = new SpeechRecognition();
+
+                // 음성 인식이 시작될 때 실행되는 이벤트 핸들러
+                recognition.onstart = () => {
+                    textInputs[index].value = '음성 입력 중...';
+                };
+
+                // 음성 인식이 종료될 때 실행되는 이벤트 핸들러
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    textInputs[index].value = transcript;
+                };
+
+                // 음성 입력 시작
+                recognition.start();
+            });
+        });
+    } else {
+        const noSupportMessage = document.createElement('div');
+        noSupportMessage.textContent = '이 브라우저는 음성 인식을 지원하지 않습니다.';
+        document.body.appendChild(noSupportMessage);
+    }
+</script>
+</body>
+</html>
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>음성 검색</title>-->
+<!--    <!DOCTYPE html>-->
+<!--    <html>-->
+<!--    <head>-->
+<!--        <title>음성 입력 폼</title>-->
+<!--    </head>-->
+<!--    <body>-->
+<!--    <h1>음성 입력 폼</h1>-->
+<!--    <form>-->
+<!--        <label for="textInput">텍스트 입력:</label>-->
+<!--        <input type="text" id="textInput">-->
+<!--        <button type="button" id="startButton">음성 입력 시작</button>-->
+<!--    </form>-->
+<!--    <div id="result"></div>-->
+
+<!--    <script>-->
+<!--        const textInput = document.getElementById('textInput');-->
+<!--        const startButton = document.getElementById('startButton');-->
+<!--        const resultDiv = document.getElementById('result');-->
+
+<!--        // 음성 인식 API를 지원하는지 확인-->
+<!--        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {-->
+<!--            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;-->
+<!--            const recognition = new SpeechRecognition();-->
+
+<!--            // 음성 인식이 시작될 때 실행되는 이벤트 핸들러-->
+<!--            recognition.onstart = () => {-->
+<!--                startButton.disabled = true;-->
+<!--                resultDiv.textContent = '음성 인식 중...';-->
+<!--            };-->
+
+<!--            // 음성 인식이 종료될 때 실행되는 이벤트 핸들러-->
+<!--            recognition.onresult = (event) => {-->
+<!--                const transcript = event.results[0][0].transcript;-->
+<!--                textInput.value = transcript;-->
+<!--                resultDiv.textContent = '음성 입력 결과: ' + transcript;-->
+<!--            };-->
+
+<!--            // 음성 입력 시작 버튼을 클릭했을 때 실행되는 이벤트 핸들러-->
+<!--            startButton.addEventListener('click', () => {-->
+<!--                recognition.start();-->
+<!--            });-->
+<!--        } else {-->
+<!--            resultDiv.textContent = '이 브라우저는 음성 인식을 지원하지 않습니다.';-->
+<!--        }-->
+<!--    </script>-->
+<!--    </body>-->
+<!--    </html>-->
